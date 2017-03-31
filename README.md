@@ -21,7 +21,7 @@ Run the following in a terminal. If you see any errors about permissions, prefix
   - Most likely `cd ~/Downloads/gtcoursewatch/`
 - Run `chmod +x gtcoursewatch.py` (only required once)
 - Run `watch ./gtcoursewatch.py`
-- Profit.
+- Profit. When GT Course Watch detects that there is a seat available in any of the classes you chose, it will send you a notification on your computer.
 
 # Notes
 Currently, this script only supports macOS.
