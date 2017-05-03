@@ -16,7 +16,7 @@ from PyQt5 import Qt
 TERM = '201708'
 
 # CRNs of courses to monitor
-CRNS = ['80662', '86760']
+CRNS = ['54496', '84480']
 
 #-----------
 # Functions
@@ -29,6 +29,7 @@ def notifyMac(message):
 def notify(message):
     app = Qt.QApplication(sys.argv)
     sti = Qt.QSystemTrayIcon()
+    sti.setIcon(Qt.QIcon("icon.jpg"))
     sti.show()
     sti.showMessage('Course Watch', message)
 
