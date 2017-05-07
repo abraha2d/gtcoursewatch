@@ -1,8 +1,10 @@
 # GT Course Watch
 Get an alert within seconds when a (waitlist/regular) seat opens up in a course section!
+
 List of colleges officially supported:
 - Georgia Tech
 - Georgia Gwinnett College
+
 Support for other colleges that use the Ellucian system can be easily added
 
 # Prerequisites
