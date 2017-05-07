@@ -5,6 +5,7 @@ import lxml.html
 import os
 import sys
 import time
+import traceback
 from PyQt5 import Qt
 
 #---------------
@@ -17,7 +18,7 @@ from PyQt5 import Qt
 TERM = '201705'
 
 # CRNs of courses to monitor
-CRNS = ['50130']
+CRNS = ['50130', '50089']
 
 # List of officially supported colleges for GT Course Watch
 GT_URL = 'https://oscar.gatech.edu/pls/bprod/'
@@ -28,8 +29,8 @@ GGC_URL = 'https://ggc.gabest.usg.edu/pls/B400/'
 # You can also set a custom URL here
 URL = GGC_URL
 
-# Waitlist override. Set to False to disable waitlist checking
-WOVER = True
+# Waitlist disable. Set to True to disable waitlist checking
+WLDIS = False
 
 #-----------
 # Functions
@@ -61,18 +62,17 @@ def main():
 
     for crn in CRNS:
         print('')
-        print('Fetching course info page from student information system...')
         print('CRN:  ' + crn)
-        print('')
+        print('Fetching course info page from student information system... ', end='')
 
         html = requests.get(URL + 'bwckschd.p_disp_detail_sched?term_in=' + TERM + '&crn_in=' + crn).text
 
-        print('Fetched page. Parsing...')
+        print('Parsing... ', end='')
 
         root = lxml.html.fromstring(html)
         dddefault = root.find_class('dddefault')
 
-        print('Parsed. Verifying...')
+        print('Verifying... ', end='')
 
         if len(dddefault) == 4:
             WAITLIST = False
@@ -84,7 +84,7 @@ def main():
             print('')
             continue
 
-        print('Verified.')
+        print('Done.')
         print('')
 
         print ('Checking seat availability...')
@@ -92,7 +92,7 @@ def main():
             notify('Seat Available for CRN ' + crn + '!')
             continue
 
-        if not WOVER and WAITLIST:
+        if (not WLDIS) and WAITLIST:
             print ('Checking waitlist seat availability...')
             if int(dddefault[6].text) != 0:
                 notify('Waitlist Seat Available for CRN ' + crn + '!')
@@ -109,6 +109,11 @@ def main2():
     try:
         print('\033[H\033[J')
         main()
+    except Exception as e:
+        print('')
+        print('A FATAL ERROR OCCURED:')
+        traceback.print_exc()
+        print('')
     finally:
         Qt.QTimer.singleShot(5000, main2)
 
@@ -116,3 +121,4 @@ if __name__ == '__main__':
     app = Qt.QApplication(sys.argv)
     Qt.QTimer.singleShot(0, main2)
     sys.exit(app.exec_())
+
