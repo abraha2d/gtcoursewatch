@@ -1,0 +1,118 @@
+#!/usr/bin/env python3
+
+import requests
+import lxml.html
+import os
+import sys
+import time
+from PyQt5 import Qt
+
+#---------------
+# Configuration
+#
+
+# Term to monitor classes in (YYYYSS)
+# YYYY = 4 digit year (e.g. 2017, 2016, 2015)
+# SS = 2 digit semester (spring -> 02, summer -> 05, fall -> 08)
+TERM = '201705'
+
+# CRNs of courses to monitor
+CRNS = ['50130']
+
+# List of officially supported colleges for GT Course Watch
+GT_URL = 'https://oscar.gatech.edu/pls/bprod/'
+GGC_URL = 'https://ggc.gabest.usg.edu/pls/B400/'
+
+# URL of college student information system
+# e.g. GT_URL for Georgia Tech, GGC_URL for GGC, etc.
+# You can also set a custom URL here
+URL = GGC_URL
+
+# Waitlist override. Set to False to disable waitlist checking
+WOVER = True
+
+#-----------
+# Functions
+#
+
+def notify(message):
+    print(message)
+    sti = Qt.QSystemTrayIcon()
+    sti.setIcon(Qt.QIcon('icon.jpg'))
+    sti.show()
+    sti.showMessage('Course Watch', message)
+
+
+#------
+# Main
+#
+
+def main():
+    print('')
+    print(' ======================== ')
+    print('|| GT Course Watch v0.9 ||')
+    print('||   By Kevin Abraham   ||')
+    print(' ======================== ')
+    print('')
+
+    print('')
+    print('TERM: ' + TERM)
+    print('')
+
+    for crn in CRNS:
+        print('')
+        print('Fetching course info page from student information system...')
+        print('CRN:  ' + crn)
+        print('')
+
+        html = requests.get(URL + 'bwckschd.p_disp_detail_sched?term_in=' + TERM + '&crn_in=' + crn).text
+
+        print('Fetched page. Parsing...')
+
+        root = lxml.html.fromstring(html)
+        dddefault = root.find_class('dddefault')
+
+        print('Parsed. Verifying...')
+
+        if len(dddefault) == 4:
+            WAITLIST = False
+        elif len(dddefault) == 7:
+            print('Waitlist detected.')
+            WAITLIST = True
+        else:
+            print('Unexpected results! Check the CRN number!')
+            print('')
+            continue
+
+        print('Verified.')
+        print('')
+
+        print ('Checking seat availability...')
+        if int(dddefault[3].text) != 0:
+            notify('Seat Available for CRN ' + crn + '!')
+            continue
+
+        if not WOVER and WAITLIST:
+            print ('Checking waitlist seat availability...')
+            if int(dddefault[6].text) != 0:
+                notify('Waitlist Seat Available for CRN ' + crn + '!')
+                continue
+
+        print('No Seat Available for CRN ' + crn + '.')
+        print('')
+
+    print('')
+    print('All done.')
+    print('')
+
+def main2():
+    try:
+        print('\033[H\033[J')
+        main()
+    finally:
+        Qt.QTimer.singleShot(5000, main2)
+
+if __name__ == '__main__':
+    app = Qt.QApplication(sys.argv)
+    Qt.QTimer.singleShot(0, main2)
+    sys.exit(app.exec_())
