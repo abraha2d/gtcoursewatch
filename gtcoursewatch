@@ -1,36 +1,34 @@
 #!/usr/bin/env python3
 
-import requests
-import lxml.html
-import os
-import sys
-import time
-import traceback
-from PyQt5 import Qt
+try:
+    import requests
+    import lxml.html
+    import os
+    import sys
+    import time
+    import traceback
+    from PyQt5 import Qt
+except Exception as e:
+    print('')
+    print('A fatal error occured while importing necessary libraries:')
+    print('')
+    traceback.print_exc()
+    print('')
+    print('Try running `pip3 install requests lxml pyqt5`')
+    print('')
+    input("Press Enter to continue...")
+    sys.exit(1)
 
-#---------------
-# Configuration
-#
-
-# Term to monitor classes in (YYYYSS)
-# YYYY = 4 digit year (e.g. 2017, 2016, 2015)
-# SS = 2 digit semester (spring -> 02, summer -> 05, fall -> 08)
-TERM = '201705'
-
-# CRNs of courses to monitor
-CRNS = ['50130', '50089']
-
-# List of officially supported colleges for GT Course Watch
-GT_URL = 'https://oscar.gatech.edu/pls/bprod/'
-GGC_URL = 'https://ggc.gabest.usg.edu/pls/B400/'
-
-# URL of college student information system
-# e.g. GT_URL for Georgia Tech, GGC_URL for GGC, etc.
-# You can also set a custom URL here
-URL = GGC_URL
-
-# Waitlist disable. Set to True to disable waitlist checking
-WLDIS = False
+try:
+    import config
+except Exception as e:
+    print('')
+    print('A fatal error occured while parsing the config file:')
+    print('')
+    traceback.print_exc()
+    print('')
+    input("Press Enter to continue...")
+    sys.exit(1)
 
 #-----------
 # Functions
@@ -58,15 +56,17 @@ def main():
     print('')
 
     print('')
-    print('TERM: ' + TERM)
+    print('TERM: ' + config.TERM)
     print('')
 
-    for crn in CRNS:
+    for crn in config.CRNS:
         print('')
         print('CRN:  ' + crn)
-        print('Fetching course info page from student information system... ', end='')
+        print('Fetching course info page from student information system... ',
+            end='')
 
-        html = requests.get(URL + 'bwckschd.p_disp_detail_sched?term_in=' + TERM + '&crn_in=' + crn).text
+        html = requests.get(config.URL + 'bwckschd.p_disp_detail_sched?term_in='
+            + config.TERM + '&crn_in=' + crn).text
 
         print('Parsing... ', end='')
 
@@ -77,10 +77,10 @@ def main():
         print('Verifying... ', end='')
 
         if len(dddefault) == 4:
-            WAITLIST = False
+            waitlist = False
         elif len(dddefault) == 7:
             print('Waitlist detected.')
-            WAITLIST = True
+            waitlist = True
         else:
             print('')
             print('Unexpected results! Check the CRN number!')
@@ -104,10 +104,11 @@ def main():
             print('')
             continue
 
-        if (not WLDIS) and WAITLIST:
+        if (not config.WLDIS) and waitlist:
             print ('Checking waitlist seat availability...')
             if int(dddefault[6].text) != 0:
-                notify('Waitlist Seat Available for CRN ' + crn + '!', courseName)
+                notify('Waitlist Seat Available for CRN ' + crn + '!',
+                    courseName)
                 continue
 
         print('No Seat Available for CRN ' + crn + '.')

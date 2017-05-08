@@ -5,7 +5,7 @@ List of colleges officially supported:
 - Georgia Tech
 - Georgia Gwinnett College
 
-Support for other colleges that use the Ellucian system can be easily added
+Support for other colleges that use the Ellucian system can be easily added. To request that your college be added, log in to your college's registration system and navigate to the "Lookup Classes" link. Make note of the URL, and open an issue with your college name and the URL.
 
 # Prerequisites
 Install Python 3 from <https://www.python.org/downloads/>, then run the following in a terminal:
@@ -13,10 +13,11 @@ Install Python 3 from <https://www.python.org/downloads/>, then run the followin
 
 # Setup
 - Download the repository zip file (Clone or download > Download ZIP)
-- Extract the zip, right-click 'gtcoursewatch', and open it with a text editor
+- Extract the zip and open 'config.py' (with a text editor)
 - Edit the TERM variable to reflect the term you're registering for
 - Edit the CRNS variable to reflect which courses you want to monitor
 - Edit the URL variable to reflect which college system to search in
+- If you encounter errors with waitlist detection (happens with some courses), set WLDIS to True
 - Save, and close
 
 # Instructions
