@@ -36,12 +36,13 @@ WLDIS = False
 # Functions
 #
 
-def notify(message):
-    print(message)
+def notify(title, message):
+    print('> ' + title)
+    print('> ' + message)
     sti = Qt.QSystemTrayIcon()
     sti.setIcon(Qt.QIcon('icon.jpg'))
     sti.show()
-    sti.showMessage('Course Watch', message)
+    sti.showMessage(title, message)
 
 
 #------
@@ -71,6 +72,7 @@ def main():
 
         root = lxml.html.fromstring(html)
         dddefault = root.find_class('dddefault')
+        ddlabel = root.find_class('ddlabel')
 
         print('Verifying... ', end='')
 
@@ -80,22 +82,32 @@ def main():
             print('Waitlist detected.')
             WAITLIST = True
         else:
+            print('')
             print('Unexpected results! Check the CRN number!')
             print('')
             continue
 
-        print('Done.')
+        if len(dddefault) > 0:
+            courseName = ddlabel[0].text
+            print('')
+            print('Course: ' + courseName)
+        else:
+            courseName = ''
+            print('')
+            print('Couldn\'t get course name!')
+
         print('')
 
         print ('Checking seat availability...')
         if int(dddefault[3].text) != 0:
-            notify('Seat Available for CRN ' + crn + '!')
+            notify('Seat Available for CRN ' + crn + '!', courseName)
+            print('')
             continue
 
         if (not WLDIS) and WAITLIST:
             print ('Checking waitlist seat availability...')
             if int(dddefault[6].text) != 0:
-                notify('Waitlist Seat Available for CRN ' + crn + '!')
+                notify('Waitlist Seat Available for CRN ' + crn + '!', courseName)
                 continue
 
         print('No Seat Available for CRN ' + crn + '.')
