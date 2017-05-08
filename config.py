@@ -13,6 +13,7 @@ CRNS = ['50130', '50131']
 # List of officially supported colleges for GT Course Watch
 GT_URL = 'https://oscar.gatech.edu/pls/bprod/'
 GGC_URL = 'https://ggc.gabest.usg.edu/pls/B400/'
+GPC_URL = 'https://sis.gpc.edu/PROD/'
 
 # URL of college student information system
 # e.g. GT_URL for Georgia Tech, GGC_URL for GGC, etc.
