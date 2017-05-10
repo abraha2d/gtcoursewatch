@@ -14,6 +14,7 @@ CRNS = ['50130', '50131']
 GT_URL = 'https://oscar.gatech.edu/pls/bprod/'
 GGC_URL = 'https://ggc.gabest.usg.edu/pls/B400/'
 GPC_URL = 'https://sis.gpc.edu/PROD/'
+GSU_URL = 'https://www.gosolar.gsu.edu/bprod/'
 
 # URL of college student information system
 # e.g. GT_URL for Georgia Tech, GGC_URL for GGC, etc.

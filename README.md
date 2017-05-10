@@ -5,6 +5,7 @@ List of colleges officially supported:
 - Georgia Tech
 - Georgia Gwinnett College
 - Georgia Perimeter College
+- Georgia State University
 
 Support for other colleges that use the Ellucian system can be easily added. To request that your college be added, log in to your college's registration system and navigate to the "Lookup Classes" link. Make note of the URL, and open an issue with your college name and the URL.
 
