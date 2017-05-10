@@ -27,7 +27,7 @@ After installing Python 3, run the following in a terminal:
 # Instructions
 - Inside the downloaded folder, double-click on `gtcoursewatch`. (Windows users, double-click on `gtcwlauncher`).
 - Accept any security warnings.
-  - On Windows, there shouldn't be any security warnings.
+  - On Windows, if SmartScreen blocks `gtcwlauncher`, click "More Info", then click "Run Anyway".
   - On macOS, instead of double-clicking, you may have to right-click and then click 'Open' to get past the security warning.
   - On Linux distros, if prompted, click "Run in terminal".
 - Profit. When GT Course Watch detects that there is a seat available in any of the classes you chose, it will send you a notification on your computer.
