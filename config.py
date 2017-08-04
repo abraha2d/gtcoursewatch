@@ -24,3 +24,9 @@ URL = GGC_URL
 
 # Waitlist disable. Set to True to disable waitlist checking
 WLDIS = False
+
+# Email to use for notifications. Set to False to disable
+EMAIL_SERVER = False
+EMAIL_ADDRESS = ''
+EMAIL_PASSWORD = ''
+EMAIL_TO = ''
