@@ -25,8 +25,21 @@ URL = GGC_URL
 # Waitlist disable. Set to True to disable waitlist checking
 WLDIS = False
 
-# Email to use for notifications. Set to False to disable
-EMAIL_SERVER = False
-EMAIL_ADDRESS = ''
-EMAIL_PASSWORD = ''
-EMAIL_TO = ''
+# Email settings
+
+EMAIL_SERVER = False    # e.g. smtp.gmail.com (for Gmail) or
+                        # smtp.mail.me.com (for iCloud).
+                        # Set to False to disable email notifications.
+
+EMAIL_ADDRESS = ''      # Your email address.
+
+EMAIL_PASSWORD = ''     # Your email password.
+                        # If you have 2-step verification enabled, you
+                        # will need to use an app-specific password.
+                        # If you're using Gmail, then you may need to
+                        # allow access to less secure apps.
+
+EMAIL_TO = ''           # The email you want to send notifications to.
+                        # This could be something like xxxxxxxxxx@txt.att.net
+                        # or xxxxxxxxxx@vtext.com if you want to send a
+                        # text message to your phone.
