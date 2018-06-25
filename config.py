@@ -16,6 +16,7 @@ GGC_URL = 'https://ggc.gabest.usg.edu/pls/B400/'
 GPC_URL = 'https://sis.gpc.edu/PROD/'
 GSU_URL = 'https://www.gosolar.gsu.edu/bprod/'
 KSU_URL = 'https://owlexpress.kennesaw.edu/prodban/'
+GTC_URL = 'https://ssb01.gwinnetttech.edu/pls/ban8/'
 
 # URL of college student information system
 # e.g. GT_URL for Georgia Tech, GGC_URL for GGC, etc.

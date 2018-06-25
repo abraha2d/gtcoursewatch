@@ -7,6 +7,7 @@ List of colleges officially supported:
 - Georgia Perimeter College
 - Georgia State University
 - Kennesaw State University
+- Gwinnett Technical College
 
 Support for other colleges that use the Ellucian system can be easily added. To request that your college be added, log in to your college's registration system and make note of the URL. Open an issue with your college name and the sample URL. Check [here](https://github.com/abraha2d/gtcoursewatch/issues?q=label%3Aenhancement+is%3Aclosed) for some examples.
 
