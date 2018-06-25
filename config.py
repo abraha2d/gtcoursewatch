@@ -5,10 +5,10 @@
 # Term to monitor classes in (YYYYSS)
 # YYYY = 4 digit year (e.g. 2017, 2016, 2015)
 # SS = 2 digit semester (spring -> 02, summer -> 05, fall -> 08)
-TERM = '201705'
+TERM = '201808'
 
 # CRNs of courses to monitor
-CRNS = ['50130', '50131']
+CRNS = ['86217', '80719']
 
 # List of officially supported colleges for GT Course Watch
 GT_URL = 'https://oscar.gatech.edu/pls/bprod/'
@@ -21,7 +21,7 @@ GTC_URL = 'https://ssb01.gwinnetttech.edu/pls/ban8/'
 # URL of college student information system
 # e.g. GT_URL for Georgia Tech, GGC_URL for GGC, etc.
 # You can also set a custom URL here
-URL = GGC_URL
+URL = GT_URL
 
 # Waitlist disable. Set to True to disable waitlist checking
 WLDIS = False
