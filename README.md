@@ -1,3 +1,5 @@
+Check out the updated Coursewatch [here](https://github.com/abraha2d/coursewatch)!
+
 # GT Course Watch
 Get an alert within seconds when a (waitlist/regular) seat opens up in a course section!
 
